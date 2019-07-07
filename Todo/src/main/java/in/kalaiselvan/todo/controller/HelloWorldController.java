@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import in.kalaiselvan.todo.bean.HelloWorldBean;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class HelloWorldController {
 	
 	
