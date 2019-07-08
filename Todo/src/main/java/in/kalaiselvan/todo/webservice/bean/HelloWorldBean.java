@@ -1,4 +1,4 @@
-package in.kalaiselvan.todo.bean;
+package in.kalaiselvan.todo.webservice.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

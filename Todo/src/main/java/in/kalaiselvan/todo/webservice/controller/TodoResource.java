@@ -1,4 +1,4 @@
-package in.kalaiselvan.todo.controller;
+package in.kalaiselvan.todo.webservice.controller;
 
 import java.net.URI;
 import java.util.List;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import in.kalaiselvan.todo.bean.TodoBean;
-import in.kalaiselvan.todo.service.TodoHardCodedService;
+import in.kalaiselvan.todo.webservice.bean.Todo;
+import in.kalaiselvan.todo.webservice.service.TodoHardCodedService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -27,13 +27,13 @@ public class TodoResource {
 	TodoHardCodedService todoHardCodedService;
 
 	@GetMapping(path = "/users/{username}/todos")
-	public List<TodoBean> getAllTodos(@PathVariable String username) {
+	public List<Todo> getAllTodos(@PathVariable String username) {
 		return todoHardCodedService.findAll();
 	}
 
 	@DeleteMapping("/users/{username}/todos/{id}")
 	public ResponseEntity<Void> deleteTodo(@PathVariable String username, @PathVariable long id) {
-		TodoBean todo = todoHardCodedService.deleteById(id);
+		Todo todo = todoHardCodedService.deleteById(id);
 
 		if (todo != null) {
 			return ResponseEntity.noContent().build();
@@ -43,29 +43,29 @@ public class TodoResource {
 	}
 	
 	@GetMapping("/users/{username}/todos/{id}")
-	public TodoBean getTodo(@PathVariable String username, @PathVariable long id) {
+	public Todo getTodo(@PathVariable String username, @PathVariable long id) {
 		return todoHardCodedService.findById(id);
 	}
 	
 	@PutMapping("/users/{username}/todos/{id}")
-	public ResponseEntity<TodoBean> updateTodo(
+	public ResponseEntity<Todo> updateTodo(
 			@PathVariable String username,
-			@PathVariable long id, @RequestBody TodoBean todo){
+			@PathVariable long id, @RequestBody Todo todo){
 		
 		todo.setUsername(username);
 		
-		TodoBean todoUpdated = todoHardCodedService.save(todo);
+		Todo todoUpdated = todoHardCodedService.save(todo);
 		
-		return new ResponseEntity<TodoBean>(todoUpdated, HttpStatus.OK);
+		return new ResponseEntity<Todo>(todoUpdated, HttpStatus.OK);
 	}
 	
 	@PostMapping("/users/{username}/todos")
 	public ResponseEntity<Void> createTodo(
-			@PathVariable String username, @RequestBody TodoBean todo){
+			@PathVariable String username, @RequestBody Todo todo){
 		
 		todo.setUsername(username);
 		
-		TodoBean createdTodo = todoHardCodedService.save(todo);
+		Todo createdTodo = todoHardCodedService.save(todo);
 		
 		//Location
 		//Get current resource url
